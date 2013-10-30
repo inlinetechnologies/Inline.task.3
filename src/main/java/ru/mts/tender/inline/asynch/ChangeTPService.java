@@ -24,6 +24,12 @@ public class ChangeTPService {
 
     /**
      * Web service operation
+     * FROM_REGION_ID	NUMBER	Регион тарифа, с которого выполняется переход
+     * FROM_TARIFF_PLAN_ID	NUMBER	Тариф, с которого выполняется переход
+     * TO_REGION_ID	NUMBER	Регион тарифа, на который выполняется переход
+     * TO_TARIFF_PLAN_ID	NUMBER	Тариф, на который выполняется переход
+     * FROM_TARIFF_CODE	VARCHAR2(1024)	Код тарифа, с которого выполняется переход
+
      */
     @WebMethod(operationName = "changeTariff")
     public String changeTariff(@WebParam(name = "msisdn") String msisdn) {
