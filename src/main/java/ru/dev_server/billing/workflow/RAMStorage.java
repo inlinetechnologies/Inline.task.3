@@ -4,7 +4,10 @@ import ru.dev_server.billing.WorkflowRequest;
 import ru.dev_server.billing.model.TariffChangeRequest;
 import ru.dev_server.billing.model.WorkflowRequestStatus;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 public class RAMStorage {
     LinkedHashMap<String, WorkflowRequest> map = new LinkedHashMap<String, WorkflowRequest>();
@@ -32,6 +35,10 @@ public class RAMStorage {
         return map.get(request.getStorageId());
     }
 
+    public Collection<WorkflowRequest> findAll() {
+        Collection<WorkflowRequest> collection = map.values();
+        return collection;
+    }
     public static void main(String[] args) {
         RAMStorage storage = new RAMStorage();
         System.out.println(storage.map.size());
@@ -56,4 +63,5 @@ public class RAMStorage {
 
 
     }
+
 }

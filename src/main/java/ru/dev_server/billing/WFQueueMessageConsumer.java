@@ -12,6 +12,9 @@ import javax.ejb.MessageDriven;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
+//import ru.inmetrix.imx.japi.*;
+//import ru.inmetrix.imx.japi.eventtypes.*;
+
 
 /**.*/
 @MessageDriven(mappedName = "jms/V2WorkflowRequestQueue")
@@ -28,6 +31,9 @@ public class WFQueueMessageConsumer implements MessageListener {
     @Override
     public void onMessage(Message message) {
 
+        // Создаем сообщение уровня «Method» (имя задается явно)
+//        SimpleMethodEventev = SimpleMethodEvent.startMethod(ntf, "onMessage");
+
         log.info("message received.");
         try {
 
@@ -37,14 +43,17 @@ public class WFQueueMessageConsumer implements MessageListener {
             WorkflowRequest workflowRequest = new WorkflowRequest(changeRq);
             workflowRequest.setTariffChangeRequest(changeRq);
 
+            em = V2WorkflowForis.getStorage();
+
             em.persist(workflowRequest);
-            log.info("message saved.");
+            log.info("Message from JMS queue saved in the storage.");
             v2WorkflowForis.startWorkflow(workflowRequest);
 
         } catch (Exception e) {
-            log.error("message NOT saved.");
+            log.error("Message from JMS queue NOT saved in the storage.");
         }
-
+        // метод успешно выполнен. Добавляем метрику KPI_RETURN=result
+//        ev.completed(result);
 
 
     }

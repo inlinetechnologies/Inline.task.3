@@ -5,9 +5,11 @@ package ru.dev_server.billing.model;
 //import javax.persistence.GenerationType;
 //import javax.persistence.Id;
 
+import java.io.Serializable;
+
 /**.*/
 //@Entity
-public class TariffChangeRequest {
+public class TariffChangeRequest implements Serializable {
 
 //    @Id @GeneratedValue(generator="system-uuid")
     private String  id;
