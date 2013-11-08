@@ -1,19 +1,25 @@
 package ru.dev_server.billing.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+//import javax.persistence.Entity;
+//import javax.persistence.GeneratedValue;
+//import javax.persistence.GenerationType;
+//import javax.persistence.Id;
 
 /**.*/
-@Entity
+//@Entity
 public class TariffChangeRequest {
 
-    @Id @GeneratedValue(generator="system-uuid")
+//    @Id @GeneratedValue(generator="system-uuid")
     private String  id;
     private String msisdn;
-//    private ChangeTariffPlanParameters changeTariffPlanParameters;
-    private WorkflowRequestStatus status;
+    private String changeTariffPlanParameters;
+
+
+    public TariffChangeRequest(String id, String msisdn, String changeTariffPlanParameters, WorkflowRequestStatus status) {
+        this.id = id;
+        this.msisdn = msisdn;
+        this.changeTariffPlanParameters = changeTariffPlanParameters;
+    }
 
     public String getMsisdn() {
         return msisdn;
@@ -40,11 +46,4 @@ public class TariffChangeRequest {
         this.id = id;
     }
 
-    public WorkflowRequestStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(WorkflowRequestStatus status) {
-        this.status = status;
-    }
 }

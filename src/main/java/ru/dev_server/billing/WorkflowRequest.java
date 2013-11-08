@@ -7,31 +7,49 @@
 package ru.dev_server.billing;
 import ru.dev_server.billing.model.TariffChangeRequest;
 import ru.dev_server.billing.model.WorkflowRequestStatus;
+import ru.dev_server.billing.workflow.V2WorkflowForis;
+import ru.dev_server.billing.workflow.RAMStorage;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+//import javax.persistence.CascadeType;
+//import javax.persistence.Entity;
+//import javax.persistence.GeneratedValue;
+//import javax.persistence.Id;
+//import javax.persistence.OneToOne;
+//import javax.persistence.Temporal;
+//import javax.persistence.TemporalType;
 import java.util.Date;
 
 /**
  *
  * @author Administrator
  */
-@Entity
+//@Entity
 public class WorkflowRequest {
-    @Id
-    @GeneratedValue(generator="system-uuid")
+//    @Id
+
+    public String getStorageId() {
+        return storageId;
+    }
+
+    public void setStorageId(String storageId) {
+        this.storageId = storageId;
+    }
+
+    //    @GeneratedValue(generator="system-uuid")
     private String  internalId;
     private String  externalId;
 
-    @Temporal(TemporalType.TIMESTAMP)
+//    @Temporal(TemporalType.TIMESTAMP)
     private Date created=new Date();
 
-    @OneToOne (cascade = CascadeType.ALL)
+    public WorkflowRequest(TariffChangeRequest tariffChangeRequest) {
+        this.tariffChangeRequest = tariffChangeRequest;
+        this.status = WorkflowRequestStatus.CREATED;
+        RAMStorage em = V2WorkflowForis.getStorage();
+        em.persist(this);
+    }
+
+    //    @OneToOne (cascade = CascadeType.ALL)
     private TariffChangeRequest tariffChangeRequest;
 
     private String errorCode;
@@ -39,6 +57,9 @@ public class WorkflowRequest {
     private String configurationData;
     private String forisResult;
     private String debugString;
+    private WorkflowRequestStatus status;
+
+    private String storageId;
 
 
     public Date getCreated() {
@@ -115,20 +136,20 @@ public class WorkflowRequest {
 
 
     public WorkflowRequestStatus getStatus() {
-        return tariffChangeRequest.getStatus();
+        return this.status;
     }
 
     public void setStatus(WorkflowRequestStatus status) {
-        tariffChangeRequest.setStatus(status);
+        this.status = status;
     }
      public String getMsisdn() {
         return tariffChangeRequest.getMsisdn();
     }
 
-    public void setStatus(String status) {
-        tariffChangeRequest.setMsisdn(status);
+    public void setMsisdn(String s) {
+        tariffChangeRequest.setMsisdn(s);
     }
-    
-    
+
+
 
 }

@@ -2,12 +2,12 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>ru.mts.tender.inline</groupId>
-  <artifactId>Inline.task.3</artifactId>
+  <groupId>ru.mts.inline</groupId>
+  <artifactId>Inline.task.3.workflow</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <name>task3.workflow</name>
+  <name>Inline.task.3.workflow</name>
   <url>http://maven.apache.org</url>
 
   <dependencies>
@@ -25,12 +25,18 @@
       <version>2.4</version>
       <scope>provided</scope>
     </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>1.6.1</version>
-      <type>jar</type>
-    </dependency>
+      <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-simple</artifactId>
+          <version>1.7.5</version>
+          <scope>runtime</scope>
+      </dependency>
+      <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+          <version>1.7.5</version>
+          <scope>runtime</scope>
+      </dependency>
     <dependency>
           <groupId>javax</groupId>
           <artifactId>javaee-api</artifactId>
@@ -43,12 +49,11 @@
       <version>2.1</version>
       <scope>provided</scope>
     </dependency>
-
-
-
-
-
-
+      <dependency>
+          <groupId>com.cloudera.science</groupId>
+          <artifactId>avro-json</artifactId>
+          <version>1.2.1</version>
+      </dependency>
   </dependencies>
 
   <build>
@@ -60,8 +65,20 @@
         <configuration>
           <source>1.6</source>
           <target>1.6</target>
+            <encoding>${project.build.sourceEncoding}</encoding>
         </configuration>
       </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>2.4.3</version>
+            <configuration>
+                <encoding>${project.build.sourceEncoding}</encoding>
+            </configuration>
+        </plugin>
     </plugins>
   </build>
+    <properties>
+        <project.build.sourceEncoding>windows-1251</project.build.sourceEncoding>
+    </properties>
 </project>

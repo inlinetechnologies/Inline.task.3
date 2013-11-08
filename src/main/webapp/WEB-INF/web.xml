@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://java.sun.com/xml/ns/javaee"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5"
-        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-        http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-
-
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee         http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <!--<servlet>-->
     <!--<description>for testing</description>-->
     <!--<servlet-name>test</servlet-name>-->
@@ -14,6 +9,22 @@
     <!--<servlet-name>test</servlet-name>-->
     <!--<url-pattern>/*</url-pattern>-->
     <!--</servlet-mapping>-->
+    <servlet>
+        <servlet-name>V2RequestListServlet</servlet-name>
+        <servlet-class>ru.dev_server.billing.V2RequestListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>V2RequestSendServlet</servlet-name>
+        <servlet-class>ru.dev_server.billing.V2RequestSendServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>V2RequestListServlet</servlet-name>
+        <url-pattern>/V2RequestListServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>V2RequestSendServlet</servlet-name>
+        <url-pattern>/V2RequestSendServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -22,4 +33,13 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    <resource-env-ref>
+        <resource-env-ref-name>jms/V2WorkflowRequestQueue</resource-env-ref-name>
+        <resource-env-ref-type>javax.jms.Queue</resource-env-ref-type>
+    </resource-env-ref>
+    <message-destination-ref>
+        <message-destination-ref-name>V2WorkflowRequestQueue</message-destination-ref-name>
+        <message-destination-type>javax.jms.Queue</message-destination-type>
+        <message-destination-usage>ConsumesProduces</message-destination-usage>
+    </message-destination-ref>
 </web-app>

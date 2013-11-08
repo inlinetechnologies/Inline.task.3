@@ -1,7 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Заглушка клиента вебсервиса в V2, отправляющего информацию о статусе запроса.
+ * При наличии данных об реальном интерфейсе V2 может быть
+ * добавлена реальная обработка и получение данных, 
+ * формирование правильных данных, кодов ошибок и при необходимости их описания
  */
 
 package stubs.V2.callbackservice;

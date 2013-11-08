@@ -4,29 +4,26 @@ package ru.dev_server.billing;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.dev_server.billing.model.TariffChangeRequest;
-import ru.dev_server.billing.WorkflowRequest;
 import ru.dev_server.billing.workflow.V2WorkflowForis;
+import ru.dev_server.billing.workflow.RAMStorage;
 
 import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
-import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 /**.*/
 @MessageDriven(mappedName = "jms/V2WorkflowRequestQueue")
 public class WFQueueMessageConsumer implements MessageListener {
 
     private static Logger log = LoggerFactory.getLogger(WFQueueMessageConsumer.class);
-    @PersistenceContext (unitName = "billing")
-    private EntityManager em;
+//    @PersistenceContext (unitName = "billing")
+//private EntityManager em;
+    private RAMStorage em;
 
     @EJB
     V2WorkflowForis v2WorkflowForis;
-
 
     @Override
     public void onMessage(Message message) {
@@ -37,7 +34,7 @@ public class WFQueueMessageConsumer implements MessageListener {
             ObjectMessage oMsg = (ObjectMessage) message;
 
             TariffChangeRequest changeRq =(TariffChangeRequest )oMsg.getObject();
-            WorkflowRequest workflowRequest = new WorkflowRequest();
+            WorkflowRequest workflowRequest = new WorkflowRequest(changeRq);
             workflowRequest.setTariffChangeRequest(changeRq);
 
             em.persist(workflowRequest);

@@ -28,6 +28,21 @@ public class EnqueueForisWSClient {
         String debugString = wr.getDebugString();
         wr.setDebugString(debugString + " Enqueued to Foris; ");
 // ставим запрос на очередь в Foris        
+        (new Thread() {
+            private WorkflowRequest enqueuedRequest;
+            public void run() {
+                // How would one access myVariable here?
+                // It's now here:
+                log.info("Initialized with value: " + enqueuedRequest.getMsisdn());
+                log.info("Processing request in Foris..." + enqueuedRequest);
+                (new ForisResultCallbackWebService()).reportForisResultViaCallback(enqueuedRequest);
+            }
+            private Thread init(WorkflowRequest r){
+                enqueuedRequest = r;
+                return this;
+            }
+        }.init(wr)).start();
+        log.info("Processing in Foris has been enqueued...");
         log.info(msisdn + " now enqueued request to Foris...");
         // метод успешно выполнен. Добавляем метрику KPI_RETURN=result
 //        ev.completed(result);

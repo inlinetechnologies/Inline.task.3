@@ -1,9 +1,9 @@
 package ru.dev_server.billing.model;
 
 /*
- * Статусы заявок, обрабатываемых конвейером
+ * РЎС‚Р°С‚СѓСЃС‹ Р·Р°СЏРІРѕРє, РѕР±СЂР°Р±Р°С‚С‹РІР°РµРјС‹С… РєРѕРЅРІРµР№РµСЂРѕРј
  */
 public enum WorkflowRequestStatus {
 
-    CREATED, REGISTERED, CONFIGURED, ENQUEUED, PROCESSED, REPORTED
+    CREATED, REGISTERED, CONFIGURED, ENQUEUED, PROCESSED, COMPLETED, REPORTED
 }
